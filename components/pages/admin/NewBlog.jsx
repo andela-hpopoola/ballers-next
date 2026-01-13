@@ -203,6 +203,27 @@ const BlogInfoForm = ({ categories }) => {
             label="Tags"
             suggestions={valuesToOptions(BLOG_TAGS)}
           />
+          <Input
+            label="Meta Description"
+            name="meta.description"
+            placeholder="Meta Description"
+            optional
+            formGroupClassName="col-md-12"
+          />
+          <Input
+            label="Meta Keywords"
+            name="meta.keywords"
+            placeholder="Meta Keywords"
+            optional
+            formGroupClassName="col-md-12"
+          />
+          <Input
+            label="Canonical"
+            name="meta.canonical"
+            placeholder="Canonical URL"
+            optional
+            formGroupClassName="col-md-12"
+          />
         </div>
       </section>
     </Card>

@@ -2,6 +2,8 @@ import {
   arrayValidation,
   optionalValidation,
   stringValidation,
+  urlValidation,
+  createSchema,
 } from './schema-helpers';
 
 export const blogPostSchema = {
@@ -10,6 +12,11 @@ export const blogPostSchema = {
   mainImage: optionalValidation(stringValidation('Main Image')),
   category: stringValidation('Category'),
   tags: optionalValidation(arrayValidation('Tags')),
+  meta: createSchema({
+    description: optionalValidation(stringValidation('Meta Description')),
+    keywords: optionalValidation(stringValidation('Meta Keywords')),
+    canonical: optionalValidation(urlValidation('Canonical')),
+  }),
   status: stringValidation('Status'),
 };
 

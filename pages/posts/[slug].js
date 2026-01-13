@@ -3,6 +3,7 @@ import Header from 'components/layout/Header';
 import CommunityGallery from 'components/common/CommunityGallery';
 import Footer from 'components/layout/Footer';
 import TitleSection from 'components/common/TitleSection';
+import SeoHead from '@/components/utils/SeoHead';
 import { API_ENDPOINT } from 'utils/URL';
 import Axios from 'axios';
 import BlogPostCard from '@/components/blog/BlogPostCard';
@@ -13,8 +14,29 @@ import { getTinyDate } from '@/utils/date-helpers';
 
 const Post = ({ blogPost: post }) => {
   if (!post?.title) return null;
+
+  const canonical =
+    post?.meta?.canonical || `https://www.ballers.ng/posts/${post?.slug}`;
+
+  const keywords = post?.meta?.keywords
+    ? Array.isArray(post.meta.keywords)
+      ? post.meta.keywords
+      : String(post.meta.keywords)
+          .split(',')
+          .map((k) => k.trim())
+    : [post.title || 'BALL Blog'];
+
+  const description = post?.meta?.description || post?.excerpt || '';
+
   return (
     <>
+      <SeoHead
+        title={post.title}
+        description={description}
+        canonical={canonical}
+        keywords={keywords}
+        ogImage={post.mainImage}
+      />
       <Header />
       <TitleSection name={post.title} content="" />
       <PostImage src={post.mainImage} alt={post.title} />

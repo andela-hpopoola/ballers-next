@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Image from 'next/image';
 
 const PostImage = ({ src, alt, url }) => (
-  <div className="post-thumbnail">
+  <div className="post-thumbnail content-image">
     {/* eslint-disable-next-line @next/next/no-img-element */}
-    <img src={src} className="img-fluid img-cover" alt={alt} />
+    <img src={src} className="img-fluid w-100" alt={alt} />
   </div>
 );
 

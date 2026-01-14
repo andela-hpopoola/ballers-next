@@ -68,6 +68,14 @@ export const NewBlogForm = ({ blog = null, toast, setToast }) => {
         const payload = {
           ...values,
           tags: getAutoCompleteAsArray(values.tags),
+          meta: {
+            description: values?.meta?.description
+              ? String(values.meta.description)
+              : '',
+            keywords: values?.meta?.keywords
+              ? String(values.meta.keywords)
+              : '',
+          },
         };
         Axios({
           method: blog?._id ? 'put' : 'post',
@@ -144,8 +152,17 @@ const EditBlogForm = ({ id, toast, setToast }) => {
   );
 };
 
-const BlogInfoForm = ({ categories }) => {
+const BlogInfoForm = ({ categories, values, setFieldValue, handleBlur }) => {
   const [isInput, setIsInput] = useState(categories.length === 0);
+
+  const slugify = (text = '') =>
+    text
+      .toString()
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-');
 
   const handleToggle = () => {
     setIsInput(!isInput);
@@ -156,7 +173,26 @@ const BlogInfoForm = ({ categories }) => {
       <section className="row">
         <div className="px-4 col-md-10">
           <h5 className="mb-4">Blog Information</h5>
-          <Input label="Title" name="title" placeholder="Blog Title" />
+          <Input
+            label="Title"
+            name="title"
+            placeholder="Blog Title"
+            onBlur={(e) => {
+              if (handleBlur) handleBlur(e);
+              const title = e?.target?.value || values?.title || '';
+              const currentSlug = values?.slug;
+              if (!currentSlug && title) {
+                setFieldValue('slug', slugify(title));
+              }
+            }}
+          />
+          <Input
+            label="Slug"
+            name="slug"
+            placeholder="Slug"
+            optional
+            formGroupClassName="col-md-12"
+          />
           <Editor name="content" placeholder="Blog Content" label="Content" />
           <div className="form-row">
             <Select
@@ -214,13 +250,6 @@ const BlogInfoForm = ({ categories }) => {
             label="Meta Keywords"
             name="meta.keywords"
             placeholder="Meta Keywords"
-            optional
-            formGroupClassName="col-md-12"
-          />
-          <Input
-            label="Canonical"
-            name="meta.canonical"
-            placeholder="Canonical URL"
             optional
             formGroupClassName="col-md-12"
           />

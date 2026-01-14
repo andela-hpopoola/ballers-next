@@ -13,7 +13,7 @@ const BlogPostCard = ({ post, isPublic = false, setToast = () => {} }) => {
   const isAdmin = useCurrentRole().isAdmin;
 
   const BlogContent = ({ post }) => (
-    <>
+    <section className="content-card">
       <PostImage src={post.mainImage} alt={post.title} />
       <div className="post-content">
         <PostDate date={post.createdAt} />
@@ -27,7 +27,7 @@ const BlogPostCard = ({ post, isPublic = false, setToast = () => {} }) => {
           isPublic={isPublic}
         />
       </div>
-    </>
+    </section>
   );
 
   const HeroPost = ({ post }) => (

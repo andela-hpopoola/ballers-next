@@ -8,6 +8,7 @@ import {
 
 export const blogPostSchema = {
   title: stringValidation('Title'),
+  slug: stringValidation('Slug'),
   content: stringValidation('Content'),
   mainImage: optionalValidation(stringValidation('Main Image')),
   category: stringValidation('Category'),
@@ -15,7 +16,6 @@ export const blogPostSchema = {
   meta: createSchema({
     description: optionalValidation(stringValidation('Meta Description')),
     keywords: optionalValidation(stringValidation('Meta Keywords')),
-    canonical: optionalValidation(urlValidation('Canonical')),
   }),
   status: stringValidation('Status'),
 };

@@ -19,7 +19,9 @@ const BlogPostCard = ({ post, isPublic = false, setToast = () => {} }) => {
         <PostDate date={post.createdAt} />
         <PostCategory {...post} isAdmin={isAdmin} />
         <PostTitle slug={post.slug} title={post.title} />
-        <PostDescription description={truncateText(post.content)} />
+        <PostDescription
+          description={truncateText(post?.meta?.description || post.content)}
+        />
         <PostActionButtons
           post={post}
           setToast={setToast}

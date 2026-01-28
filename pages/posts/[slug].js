@@ -18,10 +18,11 @@ const Post = ({ blogPost: post }) => {
   const canonical =
     post?.meta?.canonical || `https://www.ballers.ng/posts/${post?.slug}`;
 
-  const keywords = post?.meta?.keywords
-    ? Array.isArray(post.meta.keywords)
-      ? post.meta.keywords
-      : String(post.meta.keywords)
+  const rawKeywords = post?.meta?.keywords ?? post?.tags;
+  const keywords = rawKeywords
+    ? Array.isArray(rawKeywords)
+      ? rawKeywords
+      : String(rawKeywords)
           .split(',')
           .map((k) => k.trim())
     : [post.title || 'BALL Blog'];

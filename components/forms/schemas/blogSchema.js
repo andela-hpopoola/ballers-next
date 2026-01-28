@@ -15,7 +15,6 @@ export const blogPostSchema = {
   tags: optionalValidation(arrayValidation('Tags')),
   meta: createSchema({
     description: optionalValidation(stringValidation('Meta Description')),
-    keywords: optionalValidation(stringValidation('Meta Keywords')),
   }),
   status: stringValidation('Status'),
 };

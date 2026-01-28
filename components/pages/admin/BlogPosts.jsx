@@ -15,12 +15,13 @@ const BlogPosts = () => {
         DataComponent={BlogPostsRowList}
         PageIcon={<BlogIcon />}
         queryName="blogPost"
+        limit={18}
       />
     </BackendPage>
   );
 };
 
-const BlogPostsRowList = ({ results, setToast }) => {
+export const BlogPostsRowList = ({ results, setToast }) => {
   return (
     <div className="container-fluid">
       <div className="row">

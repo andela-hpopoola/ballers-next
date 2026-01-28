@@ -8,11 +8,11 @@ import Axios from 'axios';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import BlogSidebar from '@/components/blog/BlogSidebar';
 import SeoHead from '@/components/utils/SeoHead';
+import PaginatedContent from '@/components/common/PaginatedContent';
+import { BlogIcon } from '@/components/utils/Icons';
+import { BlogPostsRowList } from '@/components/pages/admin/BlogPosts';
 
-const Blog = ({ result, categories }) => {
-  const heroPost = result[0]?.node;
-  const morePosts = result.slice(1);
-
+const Blog = ({ categories }) => {
   return (
     <>
       <SeoHead
@@ -71,7 +71,7 @@ const Blog = ({ result, categories }) => {
       </section>
 
       <BlogContainer categories={categories}>
-        <BlogList result={result} />
+        <BlogList />
       </BlogContainer>
       <CommunityGallery />
       <Footer />
@@ -82,7 +82,16 @@ const Blog = ({ result, categories }) => {
 export const BlogContainer = ({ categories, children }) => (
   <section className="py-4 py-md-6 container-fluid">
     <div className="row">
-      <div className="col-lg-12 col-sm-12">{children}</div>
+      <div className="col-lg-12 col-sm-12">
+        <PaginatedContent
+          endpoint={API_ENDPOINT.getAllBlogs()}
+          pageName="Blog Post"
+          DataComponent={BlogPostsRowList}
+          PageIcon={<BlogIcon />}
+          queryName="blogPost"
+          limit={18}
+        />
+      </div>
       {/* <BlogSidebar categories={categories} /> */}
     </div>
   </section>
@@ -102,17 +111,5 @@ export const BlogList = ({ result }) => {
     <h3 className="mt-5 text-center">No Blog Found</h3>
   );
 };
-
-export async function getStaticProps() {
-  const blog = await Axios.get(API_ENDPOINT.getAllBlogs());
-  blog.data.result.reverse();
-
-  return {
-    props: {
-      ...blog.data,
-    },
-    revalidate: 10,
-  };
-}
 
 export default Blog;

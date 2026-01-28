@@ -31,6 +31,7 @@ import { blogPostSchema } from '@/components/forms/schemas/blogSchema';
 import Editor from '@/components/forms/Editor';
 import Upload from 'components/forms/UploadFormik';
 import AutoComplete from '@/components/forms/AutoComplete';
+import Textarea from '@/components/forms/Textarea';
 
 const BlogForm = ({ id = null }) => {
   const [toast, setToast] = useToast();
@@ -71,9 +72,6 @@ export const NewBlogForm = ({ blog = null, toast, setToast }) => {
           meta: {
             description: values?.meta?.description
               ? String(values.meta.description)
-              : '',
-            keywords: values?.meta?.keywords
-              ? String(values.meta.keywords)
               : '',
           },
         };
@@ -239,17 +237,10 @@ const BlogInfoForm = ({ categories, values, setFieldValue, handleBlur }) => {
             label="Tags"
             suggestions={valuesToOptions(BLOG_TAGS)}
           />
-          <Input
+          <Textarea
             label="Meta Description"
             name="meta.description"
             placeholder="Meta Description"
-            optional
-            formGroupClassName="col-md-12"
-          />
-          <Input
-            label="Meta Keywords"
-            name="meta.keywords"
-            placeholder="Meta Keywords"
             optional
             formGroupClassName="col-md-12"
           />

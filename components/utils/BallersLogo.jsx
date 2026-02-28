@@ -5,7 +5,7 @@ import React from 'react';
 // import animationData from 'lotties/logo';
 
 const BallersLogo = React.forwardRef(
-  ({ alt, className, width, height }, ref) => {
+  ({ alt, className, width = 172, height = 110 }, ref) => {
     BallersLogo.displayName = 'BallersLogo';
     // const defaultOptions = {
     //   loop: true,
@@ -47,7 +47,7 @@ const BallersLogo = React.forwardRef(
         )}
       </a>
     );
-  }
+  },
 );
 
 // const BallersLogo = ({ alt, className, width, height }) => {

@@ -32,6 +32,9 @@ const Footer = () => (
                 <li>
                   <Link href="/about-us">Meet the Team</Link>
                 </li>
+                <li>
+                  <Link href="/refer-a-baller">Refer a Baller</Link>
+                </li>
               </ul>
             </div>
             <div className="col-lg-3 col-sm-6">

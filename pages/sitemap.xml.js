@@ -33,7 +33,7 @@ export async function getServerSideProps({ req, res }) {
     res.setHeader('Content-Type', 'text/xml');
     res.write(
       `<?xml version="1.0" encoding="UTF-8"?>
-       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>`
+       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>`,
     );
     res.end();
     return { props: {} };
@@ -51,7 +51,9 @@ export async function getServerSideProps({ req, res }) {
     const propertyUrls = propertyLists.map(({ slug }) => `/properties/${slug}`);
 
     // Fetch blogs
-    const blogsRes = await Axios.get(API_ENDPOINT.getAllBlogs());
+    const blogsRes = await Axios.get(API_ENDPOINT.getAllBlogs(), {
+      params: { limit: 0 },
+    });
     const blogLists = blogsRes?.data?.result || [];
     const blogUrls = blogLists.map(({ slug }) => `/posts/${slug}`);
 

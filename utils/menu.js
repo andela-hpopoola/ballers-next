@@ -76,12 +76,6 @@ const forSellers = [
 
 const moreDropdown = [
   {
-    title: 'About Us',
-    description: 'Learn about the story, mission, and commitment behind BALL',
-    icon: <BsPeople />,
-    link: '/about-us',
-  },
-  {
     title: 'Additional Services',
     description: 'Explore additional value-added services offered by BALL',
     icon: <BsGearWideConnected />,
@@ -101,7 +95,10 @@ export const Menus = [
     href: '/how-it-works',
     children: howItWorksDropdown,
   },
-  { name: 'Properties', href: '/properties' },
+  {
+    name: 'About Us',
+    href: '/about-us',
+  },
   {
     name: 'Learn',
     href: '/learn',

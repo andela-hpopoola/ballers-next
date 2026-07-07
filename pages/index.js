@@ -17,7 +17,6 @@ import CommunityGallery from '@/components/common/CommunityGallery';
 import Footer from '@/components/layout/Footer';
 import SearchContentPropertyForm from '@/components/common/SearchContentPropertyForm';
 import axios from 'axios';
-import { PropertiesRowList } from './properties';
 import { API_ENDPOINT } from '@/utils/URL';
 import ReferralModal from '@/components/common/ReferralModal';
 import { Tab, Tabs } from 'react-bootstrap';
@@ -36,7 +35,6 @@ import Button from '@/components/forms/Button';
 import ExitIntentProvider from '@/components/exit-intent/ExitIndentProvider';
 
 export default function Home({
-  properties = [],
   allServices = [],
   blogPosts = [],
   referralCode = null,
@@ -56,19 +54,6 @@ export default function Home({
       <Header />
       <HoldingSection />
       <AboutSection />
-      <div
-        onClick={() => {
-          if (window.clarity) {
-            window.clarity('event', 'home_property_click');
-          }
-        }}
-      >
-        <PropertiesRowList
-          result={properties?.slice(0, 3)}
-          title="Available Properties"
-          viewAllLink={'/properties'}
-        />
-      </div>
       <BenefitsSection />
       <HowItWorksSection />
       <OurServices services={allServices} />
@@ -337,18 +322,13 @@ const FAQsSection = () => {
 };
 
 export async function getStaticProps() {
-  const propertiesRes = await axios.get(API_ENDPOINT.getAllProperties());
   const servicesRes = await axios.get(API_ENDPOINT.getAllVas());
-  const allProperties = propertiesRes.data?.result;
   const blogRes = await axios.get(API_ENDPOINT.getAllBlogs());
   const allBlogs = blogRes.data?.result?.reverse() || [];
   const lastestBlogs = allBlogs.slice(0, 3) || [];
 
-  const randomThreeProperties = shuffleArray(allProperties).slice(0, 3);
-
   return {
     props: {
-      properties: randomThreeProperties,
       allServices: servicesRes.data?.result,
       blogPosts: lastestBlogs,
     },
@@ -359,14 +339,8 @@ export async function getStaticProps() {
 const SearchTabComponent = () => {
   const allTabs = [
     {
-      title: 'Check Your Eligibility',
+      title: 'Start Your Landlord Journey',
       component: <SearchEligibilityForm />,
-    },
-    {
-      title: 'Search for Properties',
-      component: (
-        <AdvancedSearchPropertyForm helpText="Find Your Dream Home: Start your search with your preferences" />
-      ),
     },
   ];
 
